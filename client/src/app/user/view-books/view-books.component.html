@@ -1,0 +1,8 @@
+<div class="addbutton-container">
+    <div>
+        <mat-card>
+            <button mat-stroked-button color="accent" (click)="openAddBookModal()">ADD NEW BOOK</button>
+        </mat-card>
+    </div>
+</div>
+<app-table-books [books]="this.books"></app-table-books>

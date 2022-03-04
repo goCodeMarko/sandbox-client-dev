@@ -1,0 +1,73 @@
+
+  <div class="row">
+    <div class="col-sm-12">
+      <mat-card>
+
+         <table class="table table-responsive">
+        <thead>
+          <tr >
+            <th width="5%"><span class="fa fa-hashtag"></span></th>
+            <th>TITLE</th>
+            <th>AUTHOR</th>
+            <th>STOCKS</th>
+            <th width="5%"><span class="fa fa-bars"></span></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+            </tr>
+            <tr>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+            </tr>
+            <tr>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+            </tr>
+        </tbody>
+        <tfoot style="margin-top: 3em;">
+          <tr>
+            <td colspan="3">
+              <div class="footer-left" style="display:inline;color:gray;font-size: 12px;">
+                <div style="float:left;">
+                  Total storages: {{ totalStorages}}
+                </div>
+              </div>
+            </td>
+            <td colspan="4">
+              <div class="footer-right" style="font-size: 12px;">
+                <div style="margin-right:3em;display:inline;color:gray;">
+                  Items per page: {{mfrows}}
+
+                </div>
+                <div style="margin-right:3em;display:inline;color:gray;">
+                  {{ startNum }}<span style="margin:0 5px;">-</span>
+                  <ng-container *ngIf="endNum > totalStorages">{{ totalStorages }} </ng-container>
+                  <ng-container *ngIf="endNum < totalStorages">{{ endNum }} </ng-container>
+                  <ng-container>of</ng-container> {{ totalStorages }}
+                </div>
+
+                <b [ngClass]="{'disabled': startNum === 1}" style="cursor: pointer;margin-right:1em;"
+                  class="fas fa-chevron-left" (click)="startNum !== 1 ? true : false;"></b>
+
+                <b [ngClass]="{'disabled': endNum > totalStorages}" style="cursor: pointer; margin-left:2em;"
+                  class="fas fa-chevron-right" (click)="endNum < totalStorages ? true : false;"></b>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      </mat-card>
+    </div>
+  </div>

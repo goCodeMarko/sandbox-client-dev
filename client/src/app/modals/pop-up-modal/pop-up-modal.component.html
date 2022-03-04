@@ -1,0 +1,11 @@
+<h3>{{this.data.title}}</h3>
+<p [innerHtml]="this.data.message"></p>
+
+ <div class="buttons">
+   
+        <button mat-button (click)="delete()" *ngIf="this.data.deletebutton">Yep</button>
+
+        <button mat-flat-button color="primary" *ngIf="this.data.deletebutton" (click)="close()">Nope</button>
+        <button mat-flat-button color="primary" *ngIf="!this.data.deletebutton" (click)="close()">Okay</button>
+        
+</div>

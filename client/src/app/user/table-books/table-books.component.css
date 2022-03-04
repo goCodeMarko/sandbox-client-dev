@@ -1,0 +1,27 @@
+.footer-left {
+  width: 100%;
+  float: left;
+}
+
+.footer-right {
+  width: 100%;
+  float: left;
+  text-align: right;
+}
+
+.disabled {
+  pointer-events: none;
+  color: rgba(235, 235, 235, 0.8) !important;
+}
+
+table{
+    padding:1em;
+}
+
+tfoot{
+    margin-top: 1em;
+}
+
+.button{
+  display: inline-flex;
+}

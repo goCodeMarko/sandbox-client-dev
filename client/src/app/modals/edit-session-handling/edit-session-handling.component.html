@@ -1,0 +1,19 @@
+<form [formGroup]="accessrights">
+    <section class="example-section">
+    <mat-checkbox formControlName="isallowedtodelete" class="example-margin">Allowed to <b>Delete</b></mat-checkbox>
+    </section>
+    <section class="example-section">
+    <mat-checkbox formControlName="isallowedtocreate" class="example-margin">Allowed to <b>Create</b></mat-checkbox>
+    </section>
+    <section class="example-section">
+    <mat-checkbox formControlName="isallowedtoupdate" class="example-margin">Allowed to <b>Update</b></mat-checkbox>
+    </section>
+    <section class="example-section">
+    <mat-checkbox formControlName="isblock" class="example-margin"><b>Block</b> Access</mat-checkbox>
+    </section>
+</form>
+
+   <div class="buttons" >
+        <button mat-button (click)="save()">Yep</button>
+        <button mat-flat-button color="primary" (click)="close()">Nope</button>
+    </div>

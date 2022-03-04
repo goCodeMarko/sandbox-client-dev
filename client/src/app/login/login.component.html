@@ -1,0 +1,33 @@
+<section class="container">
+    <div>
+        <mat-card>
+            <h2 style="width: 100%;text-align:center;">PATRICK'S LIBRARY</h2>
+              <h2 style="width: 100%;text-align:center;">MANAGEMENT SYSTEM</h2>
+              <h3 style="width: 100%;text-align:center;">LOGIN</h3>
+             <p  style="width: 100%;text-align:center;">HELLO, FRIEND!</p>
+
+             <form [formGroup]="this.loginForm">
+                <p style="width: 100%;text-align: center;color:blue;">
+                    {{ this.message }} 
+                </p>
+
+               <mat-form-field style="display: block;margin-bottom:1em;" appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input type="text" matInput formControlName="email">
+                    <!-- <mat-error *ngIf="this.bookForm.controls['author'].hasError('required')">
+                    Author is required
+                    </mat-error> -->
+                </mat-form-field>
+                <mat-form-field style="display: block;margin-bottom:1em;" appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input type="text" matInput formControlName="password">
+                    <!-- <mat-error *ngIf="this.bookForm.controls['author'].hasError('required')">
+                    Author is required
+                    </mat-error> -->
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" style="width:100%;height:60px;" (click)="login()">LOGIN</button>
+            </form>
+        </mat-card>
+    </div>
+</section>

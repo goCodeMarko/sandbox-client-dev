@@ -1,0 +1,30 @@
+<mat-card>
+     <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th width="5%">#</th>
+            <th width="20%">TITLE</th>
+            <th width="25%">AUTHOR</th>
+            <th width="10%">STOCKS</th>
+            <th width="10%">PRICE</th>
+            <th width="30%" style="text-align: center;"> <mat-icon >menu</mat-icon></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of books; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{book.title | titlecase}}</td>
+                <td>{{book.author | titlecase}}</td>
+                <td>{{book.stocks}}</td>
+                <td>{{book.price | currency:'₱':'symbol'}}</td>
+                <td style="text-align: center;">
+                  <div class="buttons">
+                    <button mat-stroked-button color="accent" style="margin-right:1em;" (click)="openDeleteModal(book._id)">Delete</button>
+                    <button mat-stroked-button color="accent" (click)="openEditModal(book)">Edit</button>
+                  </div>
+                
+                </td>
+            </tr>
+        </tbody>
+      </table>
+</mat-card>

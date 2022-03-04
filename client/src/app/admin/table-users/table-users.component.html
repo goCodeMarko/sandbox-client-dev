@@ -1,0 +1,57 @@
+<mat-card>
+     <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th width="10%">#</th>
+            <th width="20%">ROLE</th>
+            <th width="30%">EMAIL</th>
+            <th width="20%">SESSION</th>
+            <th width="30%" style="text-align: center;"> <mat-icon>menu</mat-icon></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{user.role}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.fullname}}</td>
+                <td style="text-align: center;">
+                  <div class="buttons">
+                    <button mat-stroked-button color="accent" (click)="openEditSessionModal(user)">SESSION HANDLING</button>
+                  </div>
+                </td>
+            </tr>
+        </tbody>
+        <!-- <tfoot style="margin-top: 3em;">
+          <tr>
+            <td colspan="2">
+              <div class="footer-left" style="display:inline;color:gray;font-size: 12px;">
+                <div style="float:left;">
+                  Total storages: {{ totalStorages}}
+                </div>
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="footer-right" style="font-size: 12px;">
+                <div style="margin-right:3em;display:inline;color:gray;">
+                  Items per page: {{mfrows}}
+
+                </div>
+                <div style="margin-right:3em;display:inline;color:gray;">
+                  {{ startNum }}<span style="margin:0 5px;">-</span>
+                  <ng-container *ngIf="endNum > totalStorages">{{ totalStorages }} </ng-container>
+                  <ng-container *ngIf="endNum < totalStorages">{{ endNum }} </ng-container>
+                  <ng-container>of</ng-container> {{ totalStorages }}
+                </div>
+
+
+                <mat-icon [ngClass]="{'disabled': startNum === 1}" style="cursor: pointer;margin-right:1em;"
+                  class="fas fa-chevron-left" (click)="startNum !== 1 ? true : false;">chevron_left</mat-icon>
+                <mat-icon [ngClass]="{'disabled': endNum > totalStorages}" style="cursor: pointer; margin-left:2em;"
+                  class="fas fa-chevron-right" (click)="endNum < totalStorages ? true : false;">chevron_right</mat-icon>
+              </div>
+            </td>
+          </tr>
+        </tfoot> -->
+      </table>
+</mat-card>

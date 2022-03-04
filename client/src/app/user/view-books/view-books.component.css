@@ -1,0 +1,8 @@
+.addbutton-container{
+    max-width: 300px;
+    display: flex;
+}
+
+mat-card{
+    padding: 10px !important;
+}

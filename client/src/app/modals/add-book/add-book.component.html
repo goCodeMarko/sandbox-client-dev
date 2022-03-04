@@ -1,0 +1,42 @@
+<form [formGroup]="this.bookForm"> 
+  <mat-form-field style="display: block;margin-bottom:1em;" appearance="fill">
+    <mat-label>Title</mat-label>
+    <input type="text" matInput formControlName="title">
+    <mat-error *ngIf="this.bookForm.controls['title'].hasError('required')">
+      Title is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field style="display: block;margin-bottom:1em;" appearance="fill">
+    <mat-label>Author</mat-label>
+    <input type="text" matInput formControlName="author">
+    <mat-error *ngIf="this.bookForm.controls['author'].hasError('required')">
+      Author is required
+    </mat-error>
+  </mat-form-field>
+  
+  <mat-form-field style="display: block;margin-bottom:1em;" appearance="fill">
+    <mat-label>Stocks</mat-label>
+    <input type="number" min="0" matInput formControlName="stocks" (paste)="stocksStrict($event)" (keypress)="stocksStrict($event)">
+      <mat-error *ngIf="this.bookForm.controls['stocks'].hasError('required')">
+      Stocks is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field style="display: block;margin-bottom:1em;" appearance="fill">
+    <mat-label>Price</mat-label>
+    <input type="number" min="0" step=".25" matInput formControlName="price" (paste)="currencyStrict($event)" (keypress)="currencyStrict($event)">
+      <mat-error *ngIf="this.bookForm.controls['price'].hasError('required')">
+      Price is required
+    </mat-error>
+
+    <mat-error *ngIf="this.bookForm.controls['price'].hasError('pattern')">
+      Incorrect currency format
+    </mat-error>
+  </mat-form-field>
+  
+   <div class="buttons">
+        <button mat-button (click)="save()" [disabled]="this.bookForm.invalid">Yep</button>
+        <button mat-flat-button color="primary" (click)="close()">Nope</button>
+    </div>
+</form>
