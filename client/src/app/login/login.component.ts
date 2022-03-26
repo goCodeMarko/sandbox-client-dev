@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../authorization/auth.service';
 import { HttpRequestService } from '../http-request/http-request.service';
-
+import { trigger, style, animate, transition } from '@angular/animations';
 interface IUser {
   email: string;
   fullname: string;
@@ -24,7 +24,15 @@ interface IResponse {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate(300, style({ opacity: 1 }))
+      ])
+    ]),
+  ]
 })
 export class LoginComponent implements OnInit {
   message: string = "";

@@ -1,33 +1,36 @@
-<section class="container">
+<section class="login-background">
+    <div class="container" @fade>
     <div>
         <mat-card>
-            <h2 style="width: 100%;text-align:center;">PATRICK'S LIBRARY</h2>
-              <h2 style="width: 100%;text-align:center;">MANAGEMENT SYSTEM</h2>
-              <h3 style="width: 100%;text-align:center;">LOGIN</h3>
-             <p  style="width: 100%;text-align:center;">HELLO, FRIEND!</p>
+            <div class="login-card-header">
+                <div class="logo-container">    
+                    <img src="../../assets/images/company-logo.png" class="company-logo"> 
+                </div>
+                <h2>[COMPANY NAME] </h2>
+                <h3>LOGIN</h3>
+                <p>HELLO, FRIEND!</p>
+            </div>
+            
 
              <form [formGroup]="this.loginForm">
-                <p style="width: 100%;text-align: center;color:blue;">
+                <p class="warning-message">
                     {{ this.message }} 
                 </p>
-
-               <mat-form-field style="display: block;margin-bottom:1em;" appearance="fill">
+               <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input type="text" matInput formControlName="email">
-                    <!-- <mat-error *ngIf="this.bookForm.controls['author'].hasError('required')">
-                    Author is required
-                    </mat-error> -->
-                </mat-form-field>
-                <mat-form-field style="display: block;margin-bottom:1em;" appearance="fill">
+                    <input matInput type="text" matInput formControlName="email">
+                    <!-- <mat-hint>Hint</mat-hint> -->
+               </mat-form-field>
+                 <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input type="text" matInput formControlName="password">
-                    <!-- <mat-error *ngIf="this.bookForm.controls['author'].hasError('required')">
-                    Author is required
-                    </mat-error> -->
-                </mat-form-field>
-
-                <button mat-raised-button color="primary" style="width:100%;height:60px;" (click)="login()">LOGIN</button>
+                    <input type="password" matInput formControlName="password">
+                    <!-- <mat-hint>Hint</mat-hint> -->
+               </mat-form-field>
+                <button mat-button color="primary" (click)="login()">LOGIN</button>
             </form>
         </mat-card>
     </div>
+</div>
+
 </section>
+

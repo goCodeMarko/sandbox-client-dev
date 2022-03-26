@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+.login-background{
+    background: url('../../assets/images/sandbox-login-bg-min.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    & .container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+
+        & mat-card{
+            width: 500px !important;
+            margin-top: 15vh !important;
+            padding: 20px !important;
+            background-color: rgba(219, 215, 160, 0.7) !important;
+            color:black !important;
+
+            & .login-card-header{
+                & h2,h3,p {
+                   margin-top:10px;
+                   margin-bottom:10px;
+                   text-align: center;
+                   font-family: 'Russo One', sans-serif;
+                }
+
+                & .logo-container {
+                    display: flex;
+                    align-items: center;
+
+                    & .company-logo {
+                        filter: drop-shadow(5px 1px 7px black);
+                        margin: auto auto 20px auto;
+                        width: 100px;
+                    }
+                }
+            }
+
+            & .warning-message{
+                min-height: 20px;
+                width: 100%;
+                text-align: center;
+                color:rgb(199, 0, 0);
+                font-family: 'Russo One', sans-serif;
+            }
+        }
+
+        & mat-form-field {
+            display: block;
+            margin-bottom:1em;
+        }
+
+        & button {
+         width:100%;
+        }
+    }
+}
+
