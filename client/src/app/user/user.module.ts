@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { UserRoutes } from './user-routing';
 import { UserComponent } from './user.component';
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { TableComponent } from '../shared/table/table.component';
 import { MatCardModule } from '@angular/material/card';
 import { ViewBooksComponent } from './view-books/view-books.component';

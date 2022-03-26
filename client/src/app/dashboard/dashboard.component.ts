@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MenuItems } from "./../shared/menu-items/menu-items";
-interface MENU {
+import { MenuItems } from "../shared/menu-items/menu-items";
+export interface MENU {
 	state: string;
 	name: string;
 	type: string;
@@ -13,7 +13,6 @@ interface MENU {
 	styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-
 	public MENU_ITEMS: MENU[] = [
 		{ state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'fa fa-plane' },
 		{ state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_5' },
@@ -26,7 +25,6 @@ export class DashboardComponent {
 		{ state: 'lists', type: 'link', name: 'Lists', icon: 'view_list' },
 		{ state: 'menu', type: 'link', name: 'Menu', icon: 'view_headline' }
 	];
-
 	constructor(public menu: MenuItems) {
 		this.menu.setMenuItem(this.MENU_ITEMS)
 	}

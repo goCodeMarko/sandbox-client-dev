@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export interface MENU {
-  main: string;
+  main?: string;
   state: string;
   name: string;
   type: string;
