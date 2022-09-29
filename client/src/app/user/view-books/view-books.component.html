@@ -1,3 +1,11 @@
+<img [src]="this.qrCodeUrl" height="90" width="90" />
+<button (click)="this.generateQRCode()" [disabled]="this.qrBtn"
+    [ngStyle]="{ cursor: this.qrBtn ? 'progress ': 'pointer'}">Generate QR Code</button>
+<button (click)="this.downloadPDF()" [disabled]="this.pdfbtn"
+    [ngStyle]="{ cursor: this.pdfbtn ? 'progress ': 'pointer'}">Download PDF</button>
+<button (click)="this.downloadXLSX()" [disabled]="this.xlsxbtn"
+    [ngStyle]="{ cursor: this.xlsxbtn ? 'progress ': 'pointer'}">Download XLSX</button>
+
 <div class="addbutton-container">
     <div>
         <mat-card>
@@ -5,4 +13,6 @@
         </mat-card>
     </div>
 </div>
-<app-table-books [books]="this.books"></app-table-books>
+<div>
+
+<app-table-books [books]="this.books" [totalCount]="this.counts" [totalPages]="this.pages" (next)="this.getBooks($event)" (previous)="this.getBooks($event)"></app-table-books>

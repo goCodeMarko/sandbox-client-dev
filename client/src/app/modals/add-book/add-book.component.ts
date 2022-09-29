@@ -29,7 +29,6 @@ export class AddBookComponent implements OnInit {
   }
 
   save() {
-    console.log(this.bookForm.value)
     this.result.emit({ success: true, data: this.bookForm.value });
     this.close();
   }

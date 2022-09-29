@@ -35,7 +35,7 @@ html .page-wrapper{
 		height:calc(100vh - 64px);
 		.page-content{
 				padding: 15px;
-				margin: auto 7%;
+				margin: auto 2%;
 		}
 }
 
@@ -101,3 +101,25 @@ Chartistt chart css
 .pr-5 {
 	padding-right: 5px;
 }
+
+.bc-header{
+	height: 65%;
+	background: url('../../assets/images/bg-sandbox.jpg') no-repeat center center; 	
+}
+
+.breadcrumb{
+	margin-top: 1.5em;
+ 	height: 100px;
+}
+
+.bc-nav {
+	background-color: white;
+	height: 20%;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	& b {
+		margin-left: 3%;
+	}
+}
+

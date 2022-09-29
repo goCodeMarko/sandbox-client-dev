@@ -34,7 +34,7 @@ export class TableUsersComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+
   }
 
   openEditSessionModal(user: object) {
@@ -47,7 +47,7 @@ export class TableUsersComponent implements OnInit, OnChanges {
   }
 
   private editUser(editedSession: object) {
-    this.hrs.request('put', 'user/editUserAccess', { editedSession }, async (data: IResponse) => {
+    this.hrs.request('put', 'user/updateUserAccess', { editedSession }, async (data: IResponse) => {
       if (data.success) this.editCurrentUser(editedSession);
     })
   }

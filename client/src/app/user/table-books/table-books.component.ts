@@ -1,9 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpModalComponent } from '../../modals/pop-up-modal/pop-up-modal.component';
 import { HttpRequestService } from '../../http-request/http-request.service';
 import { EditBookComponent } from '../../modals/edit-book/edit-book.component';
-
 interface IBooks {
   author: string;
   stocks: number;
@@ -29,17 +28,52 @@ interface IResponse {
 })
 export class TableBooksComponent implements OnInit, OnChanges {
   @Input() books: IBooks[] = [];
+  @Input() totalCount = 0;
+  @Input() totalPages = 0;
+  @Output() next = new EventEmitter<object>();
+  @Output() previous = new EventEmitter<object>();
+  public currentPage = 1;
+  public filters = {
+    search: '',
+    dateStart: '',
+    dateEnd: '',
+    skip: 0,
+    limit: 2
+  }
 
   constructor(private dialog: MatDialog, private hrs: HttpRequestService) { }
 
   ngOnInit(): void {
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+    console.log('changes: ',changes);
+    
   }
 
-  openDeleteModal(id: string) {
+  emitNext() {
+    if (this.currentPage < this.totalPages){
+      this.currentPage++;
+      console.log(this.currentPage)
+      this.filters.skip += 2;
+      this.next.emit(this.getFilters);
+    } 
+  }
+
+  emitPrev() {
+    if (this.filters.skip > 0){
+      this.currentPage--;
+      this.filters.skip -= 2;
+      this.previous.emit(this.getFilters);
+    } 
+  }
+
+  get getFilters(){
+    return this.filters;
+  }
+
+  openDeleteModal(id: string) { 
     this.dialog.open(PopUpModalComponent, {
       width: '350px',
       data: {
@@ -59,7 +93,6 @@ export class TableBooksComponent implements OnInit, OnChanges {
         data: book
       }
     }).componentInstance.result.subscribe((newData: { save: boolean, newData: object }) => {
-      console.log(newData)
       if (newData.save) this.editBook(book, newData);
     })
   }
@@ -84,8 +117,6 @@ export class TableBooksComponent implements OnInit, OnChanges {
   }
 
   private deleteBook(id: string) {
-    console.log('xxxxxx');
-
     this.hrs.request('put', 'book/deleteBook', { id }, async (data: IResponse) => {
 
       if (data.success) {

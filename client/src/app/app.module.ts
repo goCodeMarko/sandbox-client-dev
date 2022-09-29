@@ -47,7 +47,6 @@ import { TokenInterceptorServiceService } from './token-interceptor/token-interc
     HttpClientModule,
     CommonModule,
     SharedModule,
-    HttpClientModule,
     ReactiveFormsModule,
     MatInputModule,
     RouterModule.forRoot(AppRoutes)

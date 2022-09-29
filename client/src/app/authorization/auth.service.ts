@@ -35,7 +35,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       try {
         const account = JSON.stringify(data.account);
-        const token = data.token;
+        const token = data.token; 
 
         localStorage.setItem('account', account)
         localStorage.setItem('token', token)
@@ -50,8 +50,7 @@ export class AuthService {
 
   async checkRole() {
     return new Promise((resolve) => {
-      this.hrs.request('get', 'user/userInfo', {}, (response: IResponse) => {
-        console.log(response)
+      this.hrs.request('get', 'user/getUser', {}, (response: IResponse) => {
         if (response.success) resolve(response.data[0].role);
         else this.router.navigate(['login']);
       })
@@ -74,7 +73,6 @@ export class AuthService {
   }
 
   approved(role: string) {
-    console.log(role)
     this.router.navigate([role]);
   }
 

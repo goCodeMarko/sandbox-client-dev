@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let book of books; let i = index">
-                <td>{{i+1}}</td>
+                <td>{{this.filters.skip + (i + 1)}}</td>
                 <td>{{book.title | titlecase}}</td>
                 <td>{{book.author | titlecase}}</td>
                 <td>{{book.stocks}}</td>
@@ -22,9 +22,18 @@
                     <button mat-stroked-button color="accent" style="margin-right:1em;" (click)="openDeleteModal(book._id)">Delete</button>
                     <button mat-stroked-button color="accent" (click)="openEditModal(book)">Edit</button>
                   </div>
-                
                 </td>
-            </tr>
+            </tr> 
         </tbody>
+        <tfoot>
+          <td colspan="5">
+              Total: {{ this.totalCount }} 
+          </td>
+          <td colspan="1" style="display: flex;justify-content:flex-end;">
+            <button [disabled]="this.currentPage == 1" (click)="this.emitPrev()">prev</button>
+              {{ this.currentPage }} of {{ this.totalPages }}
+            <button [disabled]="this.currentPage == this.totalPages" (click)="this.emitNext()">next</button>
+          </td>
+        </tfoot>
       </table>
 </mat-card>

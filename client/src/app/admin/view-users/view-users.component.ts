@@ -30,11 +30,11 @@ export class ViewUsersComponent implements OnInit {
   constructor(public hrs: HttpRequestService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getAllUsers();
+    this.getUsers();
   }
 
-  private getAllUsers() {
-    this.hrs.request('get', 'user/allUsers', {}, async (res: IResponse) => {
+  private getUsers() {
+    this.hrs.request('get', 'user/getUsers', {}, async (res: IResponse) => {
       this.users = res.data;
       console.log(this.users)
     });

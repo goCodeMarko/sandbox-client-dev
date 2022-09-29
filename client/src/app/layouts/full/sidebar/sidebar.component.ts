@@ -23,7 +23,6 @@ export class AppSidebarComponent implements OnDestroy {
   ) {
     this.menuItems.setMenuItem();
     this.account = JSON.parse(this.auth.getUserData()).fullname;
-    console.log(this.account)
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 .login-background{
-    background: url('../../assets/images/sandbox-login-bg-min.jpg') no-repeat center center fixed; 
+    background: url('../../assets/images/bg-sandbox.jpg') no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -15,8 +15,9 @@
         & mat-card{
             width: 500px !important;
             margin-top: 15vh !important;
-            padding: 20px !important;
-            background-color: rgba(219, 215, 160, 0.7) !important;
+            padding: 2em !important;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.7) !important;
             color:black !important;
 
             & .login-card-header{
