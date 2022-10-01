@@ -22,9 +22,7 @@ interface IResponse {
     pages: number;
   };
   code: number;
-  message?: {
-    error: { message: string };
-  };
+  message: string;
 }
 @Component({
   selector: 'app-view-books',
@@ -76,7 +74,7 @@ export class ViewBooksComponent implements OnInit {
       if (data.success) {
         this.addInCurrentUserTable(data);
       } else {
-        if (data.message?.error.message == 'Restricted') {
+        if (data.message == 'Restricted') { 
           this.dialog.open(PopUpModalComponent, {
             width: '500px',
             data: {
@@ -95,7 +93,7 @@ export class ViewBooksComponent implements OnInit {
       if (data.success) {
         this.addInCurrentUserTable(data);
       } else {
-        if (data.message?.error.message == 'Restricted') {
+        if (data.message == 'Restricted') { 
           this.dialog.open(PopUpModalComponent, {
             width: '500px',
             data: {

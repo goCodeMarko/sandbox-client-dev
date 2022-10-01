@@ -16,9 +16,7 @@ interface IResponse {
   success: string;
   data: IBooks[];
   code: number;
-  message?: {
-    error: { message: string };
-  };
+  message: string;
 }
 
 @Component({
@@ -102,7 +100,7 @@ export class TableBooksComponent implements OnInit, OnChanges {
       if (data.success) {
         this.editCurrentBookInTable(oldData._id, newData);
       } else {
-        if (data.message?.error.message == 'Restricted') {
+        if (data.message == 'Restricted') { 
           this.dialog.open(PopUpModalComponent, {
             width: '500px',
             data: {
@@ -123,7 +121,7 @@ export class TableBooksComponent implements OnInit, OnChanges {
         this.deleteCurrentBookInTable(id);
       } else {
 
-        if (data.message?.error.message == 'Restricted') {
+        if (data.message == 'Restricted') { 
           this.dialog.open(PopUpModalComponent, {
             width: '500px',
             data: {
