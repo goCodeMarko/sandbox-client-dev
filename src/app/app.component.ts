@@ -1,5 +1,6 @@
 import { Component, OnInit, isDevMode } from '@angular/core';
 import { io } from "socket.io-client";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
     } else {
       console.log('Production!');
     }
-    console.log(process.env.SERVER_URL)
+    console.log(environment)
     // const socket = io('http://localhost:3000');
 
     // socket.on('hello', (data) => {
