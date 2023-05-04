@@ -1,10 +1,12 @@
 <img [src]="this.qrCodeUrl" height="90" width="90" />
 <button (click)="this.generateQRCode()" [disabled]="this.qrBtn"
-    [ngStyle]="{ cursor: this.qrBtn ? 'progress ': 'pointer'}">Generate QR Code</button>
+    [ngStyle]="{ cursor: this.qrBtn ? 'progress ': 'pointer'}">QR Code</button>
 <button (click)="this.downloadPDF()" [disabled]="this.pdfbtn"
-    [ngStyle]="{ cursor: this.pdfbtn ? 'progress ': 'pointer'}">Download PDF</button>
-<button (click)="this.downloadXLSX()" [disabled]="this.xlsxbtn"
-    [ngStyle]="{ cursor: this.xlsxbtn ? 'progress ': 'pointer'}">Download XLSX</button>
+    [ngStyle]="{ cursor: this.pdfbtn ? 'progress ': 'pointer'}">PDF</button>
+<button (click)="this.downloadExcel()" [disabled]="this.excelbtn"
+    [ngStyle]="{ cursor: this.excelbtn ? 'progress ': 'pointer'}">Excel</button>
+<button (click)="this.downloadExcel()" [disabled]="this.excelbtn"
+    [ngStyle]="{ cursor: this.excelbtn ? 'progress ': 'pointer'}">SVG</button>
 
 <div class="addbutton-container">
     <div>

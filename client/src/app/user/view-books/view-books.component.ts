@@ -34,7 +34,7 @@ export class ViewBooksComponent implements OnInit {
   counts = 0;
   pages = 0;
   pdfbtn = false;
-  xlsxbtn = false;
+  excelbtn = false;
   qrBtn = false;
   public_id = '';
   img= '';
@@ -49,14 +49,12 @@ export class ViewBooksComponent implements OnInit {
       dateStart: '',
       dateEnd: '',
       skip: 0,
-      limit: 2
+      limit: 5
     });
   }
 
   public getBooks(filters = {}) {
-    console.log(filters);
     this.hrs.request('get', 'book/getBooks', filters , async (res: IResponse) => {
-      console.log(res)
       this.books = res.data.data;
       this.counts = res.data.counts;
       this.pages = res.data.pages;
@@ -109,17 +107,13 @@ export class ViewBooksComponent implements OnInit {
 
   private addInCurrentUserTable(newBook: any) {
     this.books.unshift(newBook.data)
-    console.log(newBook)
-    console.log(this.books)
   }
 
   public generateQRCode() {
     this.qrBtn = true;
     this.hrs.request('get', 'user/generateQR', { }, async (res: any) => {
       this.public_id = res.data.public_id;
-      console.log(this.public_id)
       this.qrCodeUrl = await this.getQRCodeImage();
-
       this.qrBtn = false;
     })
   }
@@ -138,24 +132,22 @@ export class ViewBooksComponent implements OnInit {
     this.pdfbtn = true;
 
     this.hrs.request('get', 'user/downloadPDF', { public_id: this.public_id }, async (res: any) => {
-      const url = res.data.url;
       const filename = `QRCODE_${res.data.created_at}.${res.data.format}`;
-      console.log(url)
-      saveAs(url, filename);
+
+      saveAs(res.data.url, filename);
       this.pdfbtn = false;
     })
   }
 
-  public downloadXLSX() {
-    this.xlsxbtn = true;
+  public downloadExcel() {
+    this.excelbtn = true;
 
     this.hrs.request('get', 'user/downloadExcel', { public_id: this.public_id}, async (res: any) => {
-      console.log(res)
       const url = res.data.url;
-      const filename = `XLSX_${res.data.created_at}.${res.data.format}`;
+      const filename = `Excel_${res.data.created_at}.${res.data.format}`;
 
       saveAs(url, filename);
-      this.xlsxbtn = false;
+      this.excelbtn = false;
     })
   }
 

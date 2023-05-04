@@ -36,7 +36,7 @@ export class TableBooksComponent implements OnInit, OnChanges {
     dateStart: '',
     dateEnd: '',
     skip: 0,
-    limit: 2
+    limit: 5
   }
 
   constructor(private dialog: MatDialog, private hrs: HttpRequestService) { }
