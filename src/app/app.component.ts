@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { io } from "socket.io-client";
 
 @Component({
@@ -9,6 +9,11 @@ import { io } from "socket.io-client";
 export class AppComponent implements OnInit {
 
   ngOnInit(): void {
+    if (isDevMode()) {
+      console.log('Development!');
+    } else {
+      console.log('Production!');
+    }
     // const socket = io('http://localhost:3000');
 
     // socket.on('hello', (data) => {
