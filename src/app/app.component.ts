@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
     } else {
       console.log('Production!');
     }
+    console.log(process.env.SERVER_URL)
     // const socket = io('http://localhost:3000');
 
     // socket.on('hello', (data) => {
