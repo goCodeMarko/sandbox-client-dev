@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng s --port 4888 -o",
-    "build": "ng build",
+    "build": "ng build --configuration stage",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
