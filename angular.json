@@ -18,7 +18,7 @@
               "hammerjs",
               "chartist"              
             ],
-            "outputPath": "./../public",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
