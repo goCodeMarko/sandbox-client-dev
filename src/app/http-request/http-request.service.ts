@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +12,17 @@ export class HttpRequestService {
   request(method: string, endpoint: string, payload: any, callback: any) {
     switch (method) {
       case 'get':
-        return this.http.get(`http://localhost:3000/api/${endpoint}`, { params: payload }).subscribe(response => {
+        return this.http.get(`${environment.SERVER_URL}${endpoint}`, { params: payload }).subscribe(response => {
           return callback(response)
         });
 
       case 'post':
-        return this.http.post(`http://localhost:3000/api/${endpoint}`, payload).subscribe(response => {
+        return this.http.post(`${environment.SERVER_URL}${endpoint}`, payload).subscribe(response => {
           return callback(response)
         });
 
       case 'put':
-        return this.http.put(`http://localhost:3000/api/${endpoint}`, payload).subscribe(response => {
+        return this.http.put(`${environment.SERVER_URL}${endpoint}`, payload).subscribe(response => {
           return callback(response)
         });
     }
