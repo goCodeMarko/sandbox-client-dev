@@ -896,7 +896,23 @@ list inline
 }
 
 .mat-stroked-button.mat-accent {
-  color: #588b8b;
-  background-color: white;
-  // width: 150px;
+  color: #588b8b !important;
+}
+
+.mat-button.mat-primary {
+  color: #588b8b !important;
+}
+
+.mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+  .mat-form-field-flex:hover
+  .mat-form-field-outline {
+  color: #588b8b !important;
+}
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #588b8b !important;
+}
+.mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+  .mat-form-field-flex
+  .mat-form-field-outline {
+  color: #588b8b !important;
 }
