@@ -1,44 +1,38 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpRequestService } from '../http-request/http-request.service';
-
-interface IUser {
-  _id: string;
-  email: string;
-  role: boolean;
-  fullname: string;
-  isallowedtodelete: boolean;
-  isallowedtocreate: boolean;
-  isallowedtoupdate: boolean;
-  isblock: boolean;
-}
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { HttpRequestService } from "../http-request/http-request.service";
 
 interface IResponse {
   success: string;
-  data: IUser[];
+  data: {
+    role: string;
+    _id: string;
+    email: string;
+    fullname: string;
+    isallowedtodelete: boolean;
+    isallowedtocreate: boolean;
+    isallowedtoupdate: boolean;
+    isblock: boolean;
+  };
   code: number;
   message?: {
     error: { message: string };
   };
 }
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
+  constructor(private router: Router, private hrs: HttpRequestService) {}
 
-  constructor(
-    private router: Router,
-    private hrs: HttpRequestService
-  ) { }
-
-  setToken(data: { account: object[], token: any }) {
+  setToken(data: { account: object[]; token: any }) {
     return new Promise((resolve, reject) => {
       try {
         const account = JSON.stringify(data.account);
-        const token = data.token; 
+        const token = data.token;
 
-        localStorage.setItem('account', account)
-        localStorage.setItem('token', token)
+        localStorage.setItem("account", account);
+        localStorage.setItem("token", token);
       } catch (e) {
         console.info(e);
         reject(false);
@@ -50,11 +44,17 @@ export class AuthService {
 
   async checkRole() {
     return new Promise((resolve) => {
-      this.hrs.request('get', 'user/getUser', {}, (response: IResponse) => {
-        if (response.success) resolve(response.data[0].role);
-        else this.router.navigate(['login']);
-      })
-    })
+      this.hrs.request(
+        "get",
+        "user/getUser/652bafc08854e557722dea2e",
+        {},
+        (response: IResponse) => {
+          const { role } = response.data;
+          if (response.success) resolve(role);
+          else this.router.navigate(["login"]);
+        }
+      );
+    });
 
     // let token = this.getToken();
     // let account = JSON.parse(this.getUserData());
@@ -63,22 +63,22 @@ export class AuthService {
   }
 
   getToken(): string {
-    let token = localStorage.getItem('token');
-    return token ? token : '';
+    let token = localStorage.getItem("token");
+    return token ? token : "";
   }
 
   getUserData(): string {
-    let account = localStorage.getItem('account');
-    return account ? account : '';
+    let account = localStorage.getItem("account");
+    return account ? account : "";
   }
 
-  approved(role: string) {
+  navigate(role: string) {
     this.router.navigate([role]);
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    this.router.navigate(["/login"]);
   }
 }

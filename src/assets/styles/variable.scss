@@ -5,12 +5,12 @@ Email: niravjoshi87@gmail.com
 File: scss
 */
 // Variables
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
 
-$bodyfont: 'Poppins', sans-serif;
-$headingfont: 'Poppins', sans-serif;
+$bodyfont: "Poppins", sans-serif;
+$headingfont: "Poppins", sans-serif;
 
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 /*Material Theme Colors*/
 
@@ -24,7 +24,7 @@ $foreground: map-get($theme, foreground);
 @include mat-core();
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Poppins, sans-serif'
+  $font-family: "Poppins, sans-serif",
 );
 
 // Override the typography in the core CSS.
@@ -49,14 +49,18 @@ $sidebar-icons: #99abb4;
 
 $font-16: 16px;
 
+$icon-size-sm: 16px;
+$icon-size-m: 24px;
+$icon-size-l: 32px;
+
 $light-text: #a6b7bf;
 $themecolor: #1e88e5;
-$themecolor-alt: #26c6da;
+$themecolor-alt: #588b8b;
 $themecolor-dark: #028ee1;
 
 /*bootstrap Color*/
 $danger: #fc4b6c;
-$success: #26c6da;
+$success: #588b8b;
 $warning: #ffb22b;
 $primary: #7460ee;
 $info: #1e88e5;

@@ -1,39 +1,75 @@
-<mat-card>
-     <table class="table table-responsive">
-        <thead>
-          <tr>
-            <th width="5%">#</th>
-            <th width="20%">TITLE</th>
-            <th width="25%">AUTHOR</th>
-            <th width="10%">STOCKS</th>
-            <th width="10%">PRICE</th>
-            <th width="30%" style="text-align: center;"> <mat-icon >menu</mat-icon></th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let book of books; let i = index">
-                <td>{{this.filters.skip + (i + 1)}}</td>
-                <td>{{book.title | titlecase}}</td>
-                <td>{{book.author | titlecase}}</td>
-                <td>{{book.stocks}}</td>
-                <td>{{book.price | currency:'₱':'symbol'}}</td>
-                <td style="text-align: center;">
-                  <div class="buttons">
-                    <button mat-stroked-button color="accent" style="margin-right:1em;" (click)="openDeleteModal(book._id)">Delete</button>
-                    <button mat-stroked-button color="accent" (click)="openEditModal(book)">Edit</button>
-                  </div>
-                </td>
-            </tr> 
-        </tbody>
-        <tfoot>
-          <td colspan="5">
-              Total: {{ this.totalCount }} 
-          </td>
-          <td colspan="1" style="display: flex;justify-content:flex-end;">
-            <button [disabled]="this.currentPage == 1" (click)="this.emitPrev()">prev</button>
-              {{ this.currentPage }} of {{ this.totalPages }}
-            <button [disabled]="this.currentPage == this.totalPages" (click)="this.emitNext()">next</button>
-          </td>
-        </tfoot>
-      </table>
+<mat-card style="border-radius: 15px">
+  <!-- search box -->
+  <mat-form-field style="margin: 1em; width: 300px" appearance="fill">
+    <mat-label>Search</mat-label>
+    <input matInput type="search" />
+  </mat-form-field>
+
+  <button mat-stroked-button color="accent">Filters</button>
+
+  <!-- table -->
+  <table class="table table-responsive">
+    <thead>
+      <tr>
+        <th width="5%">#</th>
+        <th width="20%">TITLE</th>
+        <th width="25%">AUTHOR</th>
+        <th width="10%">STOCKS</th>
+        <th width="10%">PRICE</th>
+        <th width="30%" style="text-align: center">
+          <mat-icon>menu</mat-icon>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books; let i = index">
+        <td>
+          {{
+            this.filters.limit * this.currentPage - (this.filters.limit - 1) + i
+          }}
+        </td>
+        <td>{{ book.title | titlecase }}</td>
+        <td>{{ book.author | titlecase }}</td>
+        <td>{{ book.stocks }}</td>
+        <td>{{ book.price | currency : "₱" : "symbol" }}</td>
+        <td style="text-align: center">
+          <div class="buttons">
+            <button
+              mat-stroked-button
+              color="accent"
+              style="margin-right: 1em"
+              (click)="openDeleteModal(book._id)"
+            >
+              Delete
+            </button>
+            <button
+              mat-stroked-button
+              color="accent"
+              (click)="openEditModal(book)"
+            >
+              Edit
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <td colspan="5">
+        Total Item<ng-container *ngIf="this.totalCount">s</ng-container>:
+        {{ this.totalCount }}
+      </td>
+      <td colspan="1" style="display: flex; justify-content: flex-end">
+        <button [disabled]="this.currentPage == 1" (click)="this.emitPrev()">
+          prev
+        </button>
+        Page {{ this.currentPage }} of {{ this.totalPages }}
+        <button
+          [disabled]="this.currentPage == this.totalPages"
+          (click)="this.emitNext()"
+        >
+          next
+        </button>
+      </td>
+    </tfoot>
+  </table>
 </mat-card>

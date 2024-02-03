@@ -1,9 +1,12 @@
-.addbutton-container{
-    max-width: 300px;
-    display: flex;
+.addbutton-container {
+  max-width: 300px;
+  display: flex;
 }
 
-mat-card{
-    padding: 10px !important;
+mat-card {
+  padding: 10px !important;
 }
 
+.id-card-border {
+  border-radius: 15px;
+}

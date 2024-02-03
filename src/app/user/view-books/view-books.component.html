@@ -1,20 +1,139 @@
-<img [src]="this.qrCodeUrl" height="90" width="90" />
-<button (click)="this.generateQRCode()" [disabled]="this.qrBtn"
-    [ngStyle]="{ cursor: this.qrBtn ? 'progress ': 'pointer'}">QR Code</button>
-<button (click)="this.downloadPDF()" [disabled]="this.pdfbtn"
-    [ngStyle]="{ cursor: this.pdfbtn ? 'progress ': 'pointer'}">PDF</button>
-<button (click)="this.downloadExcel()" [disabled]="this.excelbtn"
-    [ngStyle]="{ cursor: this.excelbtn ? 'progress ': 'pointer'}">Excel</button>
-<button (click)="this.downloadExcel()" [disabled]="this.excelbtn"
-    [ngStyle]="{ cursor: this.excelbtn ? 'progress ': 'pointer'}">SVG</button>
+<!-- <svg #myDiv>
+  <g>
+    <rect
+      x="0"
+      y="0"
+      width="25"
+      height="25"
+      id="f1_001"
+      (click)="change($event)"
+    />
+    <rect
+      x="30"
+      y="0"
+      width="25"
+      height="25"
+      id="f1_002"
+      (click)="change($event)"
+    />
+    <rect
+      x="60"
+      y="0"
+      width="25"
+      height="25"
+      id="f1_003"
+      (click)="change($event)"
+    />
+  </g>
+</svg> -->
+<div style="display: block">
+  <img
+    *ngIf="this.barcodeUrl"
+    [src]="this.barcodeUrl"
+    class="id-card-border"
+    width="442"
+    height="142"
+  />
+  <img
+    *ngIf="this.qrCodeUrl"
+    [src]="this.qrCodeUrl"
+    class="id-card-border"
+    width="200"
+    height="200"
+  />
+  <img
+    *ngIf="this.selectedCardFace.url"
+    [src]="this.selectedCardFace.url"
+    class="id-card-border"
+    width="490"
+    height="310"
+    #idCard
+  />
+  <button
+    (click)="this.flipIdCard()"
+    *ngIf="this.selectedCardFace.url"
+    [ngStyle]="{ cursor: this.qrBtn ? 'progress ' : 'pointer' }"
+    mat-stroked-button
+    color="accent"
+  >
+    {{ this.selectedCardFace.face === "front" ? "Back" : "Front" }}
+  </button>
+</div>
+
+<button
+  (click)="this.generateQRCode()"
+  [disabled]="this.qrBtn"
+  [ngStyle]="{ cursor: this.qrBtn ? 'progress ' : 'pointer' }"
+  mat-stroked-button
+  color="accent"
+>
+  QR Code
+</button>
+
+<button
+  (click)="this.generateIdCard()"
+  [disabled]="this.idCardBtn"
+  [ngStyle]="{ cursor: this.idCardBtn ? 'progress ' : 'pointer' }"
+  mat-stroked-button
+  color="accent"
+>
+  ID Card
+</button>
+<button
+  (click)="this.generateBarcode()"
+  [disabled]="this.barcodeBtn"
+  [ngStyle]="{ cursor: this.qrBtn ? 'progress ' : 'pointer' }"
+  mat-stroked-button
+  color="accent"
+>
+  Barcode
+</button>
+<button
+  (click)="this.downloadPDF()"
+  [disabled]="this.pdfbtn"
+  [ngStyle]="{ cursor: this.pdfbtn ? 'progress ' : 'pointer' }"
+  mat-stroked-button
+  color="accent"
+>
+  PDF
+</button>
+<button
+  (click)="this.downloadExcel()"
+  [disabled]="this.excelbtn"
+  [ngStyle]="{ cursor: this.excelbtn ? 'progress ' : 'pointer' }"
+  mat-stroked-button
+  color="accent"
+>
+  Excel
+</button>
+<button
+  (click)="this.downloadExcel()"
+  [disabled]="this.excelbtn"
+  [ngStyle]="{ cursor: this.excelbtn ? 'progress ' : 'pointer' }"
+  mat-stroked-button
+  color="accent"
+>
+  CSV
+</button>
 
 <div class="addbutton-container">
-    <div>
-        <mat-card>
-            <button mat-stroked-button color="accent" (click)="openAddBookModal()">ADD NEW BOOK</button>
-        </mat-card>
-    </div>
+  <button
+    mat-stroked-button
+    color="accent"
+    (click)="openAddBookModal()"
+    mat-stroked-button
+    color="accent"
+  >
+    Add Book
+  </button>
 </div>
 <div>
-
-<app-table-books [books]="this.books" [totalCount]="this.counts" [totalPages]="this.pages" (next)="this.getBooks($event)" (previous)="this.getBooks($event)"></app-table-books>
+  <app-table-books
+    [books]="this.books"
+    [totalCount]="this.counts"
+    [currentPage]="this.currentPage"
+    [totalPages]="this.pages"
+    (next)="this.getBooks($event)"
+    (previous)="this.getBooks($event)"
+  ></app-table-books>
+</div>

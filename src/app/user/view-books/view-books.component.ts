@@ -1,9 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { HttpRequestService } from '../../http-request/http-request.service';
-import { AddBookComponent } from '../../modals/add-book/add-book.component';
-import { PopUpModalComponent } from '../../modals/pop-up-modal/pop-up-modal.component';
-import { saveAs } from 'file-saver';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  Inject,
+  Renderer2,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { HttpRequestService } from "../../http-request/http-request.service";
+import { AddBookComponent } from "../../modals/add-book/add-book.component";
+import { PopUpModalComponent } from "../../modals/pop-up-modal/pop-up-modal.component";
+import { saveAs } from "file-saver";
+import { DOCUMENT } from "@angular/common";
 
 interface IBooks {
   author: string;
@@ -17,138 +25,232 @@ interface IBooks {
 interface IResponse {
   success: string;
   data: {
-    data: IBooks[];
-    counts: number;
-    pages: number;
+    items: IBooks[];
+    meta: {
+      total: number;
+      limit: number;
+      page: number;
+      pages: number;
+    };
   };
   code: number;
   message: string;
 }
 @Component({
-  selector: 'app-view-books',
-  templateUrl: './view-books.component.html',
-  styleUrls: ['./view-books.component.css']
+  selector: "app-view-books",
+  templateUrl: "./view-books.component.html",
+  styleUrls: ["./view-books.component.css"],
 })
 export class ViewBooksComponent implements OnInit {
   books: IBooks[] = [];
   counts = 0;
   pages = 0;
+  currentPage = 0;
   pdfbtn = false;
   excelbtn = false;
   qrBtn = false;
-  public_id = '';
-  img= '';
-  qrCodeUrl = '';
-  constructor(public hrs: HttpRequestService, private dialog: MatDialog) {
- 
-   }
+  barcodeBtn = false;
+  idCardBtn = false;
+  img = "";
+  qrCodeUrl = "";
+  barcodeUrl = "";
+  idCard = {
+    front: { secure_url: "", public_id: "", format: "" },
+    back: { secure_url: "", public_id: "", format: "" },
+  };
+  selected = ["f1_001", "f1_002"];
+
+  constructor(
+    public hrs: HttpRequestService,
+    private dialog: MatDialog,
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit(): void {
     this.getBooks({
-      search: '',
-      dateStart: '',
-      dateEnd: '',
+      search: "",
+      dateStart: "",
+      dateEnd: "",
       skip: 0,
-      limit: 5
+      limit: 5,
     });
+
+    /*
+    this.selected.forEach((id) => {
+      const el = this.el.nativeElement.querySelector("#" + id);
+      this.renderer.setAttribute(el, "status", "1");
+      this.renderer.setStyle(el, "fill", "red");
+    });
+    */
+  }
+
+  change(event: any) {
+    const selected_id = event.target.id;
+    const el = this.el.nativeElement.querySelector("#" + selected_id);
+    const status = Number(el.getAttribute("status"));
+
+    if (status === 0 || !status) {
+      this.renderer.setAttribute(el, "status", "1");
+      this.renderer.setStyle(el, "fill", "red");
+      this.selected.push(selected_id);
+    } else if (status === 1) {
+      this.selected = this.selected.filter((id) => id !== selected_id);
+      this.renderer.setAttribute(el, "status", "0");
+      this.renderer.setStyle(el, "fill", "black");
+    }
+
+    console.log(this.selected);
   }
 
   public getBooks(filters = {}) {
-    this.hrs.request('get', 'book/getBooks', filters , async (res: IResponse) => {
-      this.books = res.data.data;
-      this.counts = res.data.counts;
-      this.pages = res.data.pages;
-    });
+    console.log(3999, filters);
+    this.hrs.request(
+      "get",
+      "book/getBooks",
+      filters,
+      async (res: IResponse) => {
+        const { total, page, pages } = res.data.meta;
+        this.books = res.data.items;
+        this.currentPage = page;
+        this.counts = total;
+        this.pages = pages;
+      }
+    );
   }
 
   openAddBookModal() {
-    this.dialog.open(AddBookComponent, { width: '500px' }).componentInstance.result.subscribe((data: any) => {
-      this.addBook(data.data)
-    })
+    this.dialog
+      .open(AddBookComponent, { width: "500px" })
+      .componentInstance.result.subscribe((data: any) => {
+        this.addBook(data.data);
+      });
   }
 
   private viewBook(data: object) {
-    this.hrs.request('get', 'book/addBook', { params: { _id: '61f11c3e78a00d0f84df09e2' } }, async (data: IResponse) => {
-      if (data.success) {
-        this.addInCurrentUserTable(data);
-      } else {
-        if (data.message == 'Restricted') { 
-          this.dialog.open(PopUpModalComponent, {
-            width: '500px',
-            data: {
-              deletebutton: false,
-              title: "Access Denied",
-              message: 'Oops, It looks like you <b>dont have access</b> on this feature.'
-            }
-          })
+    this.hrs.request(
+      "get",
+      "book/addBook",
+      { params: { _id: "61f11c3e78a00d0f84df09e2" } },
+      async (data: IResponse) => {
+        if (data.success) {
+          this.addInCurrentUserTable(data);
+        } else {
+          if (data.message == "Restricted") {
+            this.dialog.open(PopUpModalComponent, {
+              width: "500px",
+              data: {
+                deletebutton: false,
+                title: "Access Denied",
+                message:
+                  "Oops, It looks like you <b>dont have access</b> on this feature.",
+              },
+            });
+          }
         }
       }
-    })
+    );
   }
 
   private addBook(data: object) {
-    this.hrs.request('post', 'book/addBook', data, async (data: IResponse) => {
+    this.hrs.request("post", "book/addBook", data, async (data: IResponse) => {
       if (data.success) {
         this.addInCurrentUserTable(data);
       } else {
-        if (data.message == 'Restricted') { 
+        if (data.message == "Restricted") {
           this.dialog.open(PopUpModalComponent, {
-            width: '500px',
+            width: "500px",
             data: {
               deletebutton: false,
               title: "Access Denied",
-              message: 'Oops, It looks like you <b>dont have access</b> on this feature.'
-            }
-          })
+              message:
+                "Oops, It looks like you <b>dont have access</b> on this feature.",
+            },
+          });
         }
       }
-    })
+    });
   }
 
   private addInCurrentUserTable(newBook: any) {
-    this.books.unshift(newBook.data)
+    this.books.unshift(newBook.data);
+  }
+
+  selectedCardFace = { face: "front", url: "" };
+
+  public generateIdCard() {
+    this.qrCodeUrl = "";
+    this.barcodeUrl = "";
+
+    this.idCardBtn = true;
+    this.hrs.request("put", "user/generateIdCard", {}, async (res: any) => {
+      console.log(2342342342, res);
+      if (res.success) {
+        this.idCard.front = res.data.front_card;
+        this.idCard.back = res.data.back_card;
+
+        this.selectedCardFace.url = res.data.front_card.secure_url;
+        this.selectedCardFace.face = "front";
+      }
+
+      this.idCardBtn = false;
+    });
+  }
+  public flipIdCard() {
+    if (this.selectedCardFace.face === "front") {
+      this.selectedCardFace.url = this.idCard.back.secure_url;
+      this.selectedCardFace.face = "back";
+    } else {
+      this.selectedCardFace.url = this.idCard.front.secure_url;
+      this.selectedCardFace.face = "front";
+    }
   }
 
   public generateQRCode() {
+    this.selectedCardFace.url = "";
+    this.barcodeUrl = "";
+
     this.qrBtn = true;
-    this.hrs.request('get', 'user/generateQR', { }, async (res: any) => {
-      this.public_id = res.data.public_id;
-      this.qrCodeUrl = await this.getQRCodeImage();
+    this.hrs.request("put", "user/generateQR", {}, async (res: any) => {
+      this.qrCodeUrl = res.data.url;
       this.qrBtn = false;
-    })
+    });
   }
 
-  private getQRCodeImage(): Promise<string> {
-    return new Promise<string>((resolve) => {
-      this.hrs.request('get', 'user/getFile', { public_id: this.public_id }, async (res: any) => {
-        const url: string = res.data;
+  public generateBarcode() {
+    this.selectedCardFace.url = "";
+    this.qrCodeUrl = "";
 
-        resolve(url);
-      })
-    })
+    this.barcodeBtn = true;
+    this.hrs.request("put", "user/generateBarcode", {}, async (res: any) => {
+      this.barcodeUrl = res.data.url;
+      this.barcodeBtn = false;
+    });
   }
-  
+
   public downloadPDF() {
     this.pdfbtn = true;
 
-    this.hrs.request('get', 'user/downloadPDF', { public_id: this.public_id }, async (res: any) => {
-      const filename = `QRCODE_${res.data.created_at}.${res.data.format}`;
+    this.hrs.request("download", "user/downloadPDF", {}, async (res: any) => {
+      const filename = `PDF_123`;
+      if (res.body) {
+        saveAs(res.body, filename);
+      }
 
-      saveAs(res.data.url, filename);
       this.pdfbtn = false;
-    })
+    });
   }
 
   public downloadExcel() {
     this.excelbtn = true;
 
-    this.hrs.request('get', 'user/downloadExcel', { public_id: this.public_id}, async (res: any) => {
-      const url = res.data.url;
-      const filename = `Excel_${res.data.created_at}.${res.data.format}`;
+    this.hrs.request("download", "user/downloadExcel", {}, async (res: any) => {
+      const filename = `EXCEL_123`;
+      if (res.body) {
+        saveAs(res.body, filename);
+      }
 
-      saveAs(url, filename);
       this.excelbtn = false;
-    })
+    });
   }
-
 }
