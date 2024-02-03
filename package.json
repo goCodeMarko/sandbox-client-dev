@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng s --port 4888 -o",
-    "build": "ng build --configuration dev",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider&& ng s --port 4888 -o",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider&&ng build --configuration dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -60,6 +60,6 @@
     "typescript": "~4.0.5"
   },
   "engines": {
-    "node": "18.17.0"
+    "node": "20.11.0"
   }
 }
