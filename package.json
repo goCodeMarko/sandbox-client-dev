@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "set NODE_OPTIONS=--openssl-legacy-provider&& ng s --port 4888 -o",
-    "build": "ng build --configuration dev",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider ng build --configuration dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
