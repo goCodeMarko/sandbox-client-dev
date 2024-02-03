@@ -44,16 +44,11 @@ export class AuthService {
 
   async checkRole() {
     return new Promise((resolve) => {
-      this.hrs.request(
-        "get",
-        "user/getUser/652bafc08854e557722dea2e",
-        {},
-        (response: IResponse) => {
-          const { role } = response.data;
-          if (response.success) resolve(role);
-          else this.router.navigate(["login"]);
-        }
-      );
+      this.hrs.request("get", "user/getAuthUser", {}, (response: IResponse) => {
+        const { role } = response.data;
+        if (response.success) resolve(role);
+        else this.router.navigate(["login"]);
+      });
     });
 
     // let token = this.getToken();
