@@ -7,7 +7,7 @@
 >
   <!-- User profile image -->
   <div class="profile-img">
-    <img src="assets/images/users/profile.png" alt="user" />
+    <img [src]="this.account.profile_picture.url" alt="user" />
   </div>
   <!-- User profile text-->
   <!-- ============================================================== -->
@@ -15,7 +15,7 @@
   <!-- ============================================================== -->
   <div class="profile-text">
     <a [matMenuTriggerFor]="sdprofile" class="">
-      {{ this.account }} <i class="ti-angle-down font-12 m-l-5"></i
+      {{ this.account.fullname }} <i class="ti-angle-down font-12 m-l-5"></i
     ></a>
   </div>
   <mat-menu #sdprofile="matMenu" class="mymegamenu">

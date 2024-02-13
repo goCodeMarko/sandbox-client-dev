@@ -28,6 +28,8 @@ import { AddBookComponent } from "./modals/add-book/add-book.component";
 import { EditSessionHandlingComponent } from "./modals/edit-session-handling/edit-session-handling.component";
 import { AuthService } from "./authorization/auth.service";
 import { TokenInterceptorServiceService } from "./token-interceptor/token-interceptor-service.service";
+import { LoginComponent } from "./login/login.component";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { TokenInterceptorServiceService } from "./token-interceptor/token-interc
     EditBookComponent,
     AddBookComponent,
     EditSessionHandlingComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { TokenInterceptorServiceService } from "./token-interceptor/token-interc
     SharedModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatTooltipModule,
     RouterModule.forRoot(AppRoutes),
   ],
   providers: [

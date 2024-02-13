@@ -15,6 +15,7 @@ mat-sidenav {
 }
 #snav {
   box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+  border: 0px;
   .mat-list-item {
     height: 65px;
     &:hover {
@@ -59,7 +60,7 @@ mat-sidenav {
       }
     }
     &.selected > .mat-list-item-content > a {
-      background: $themecolor-alt;
+      background: #90ac8e;
       border-radius: $radius;
       color: $white;
 

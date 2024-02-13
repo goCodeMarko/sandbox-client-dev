@@ -10,8 +10,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { HttpRequestService } from "../../http-request/http-request.service";
 import { AddBookComponent } from "../../modals/add-book/add-book.component";
 import { PopUpModalComponent } from "../../modals/pop-up-modal/pop-up-modal.component";
-import { saveAs } from "file-saver";
-import { DOCUMENT } from "@angular/common";
+import { trigger, style, animate, transition } from "@angular/animations";
 
 interface IBooks {
   author: string;
@@ -40,6 +39,14 @@ interface IResponse {
   selector: "app-view-books",
   templateUrl: "./view-books.component.html",
   styleUrls: ["./view-books.component.css"],
+  animations: [
+    trigger("fade", [
+      transition("void => *", [
+        style({ opacity: 0 }),
+        animate(300, style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class ViewBooksComponent implements OnInit {
   books: IBooks[] = [];
@@ -73,7 +80,7 @@ export class ViewBooksComponent implements OnInit {
       dateStart: "",
       dateEnd: "",
       skip: 0,
-      limit: 5,
+      limit: 10,
     });
 
     /*
@@ -104,7 +111,6 @@ export class ViewBooksComponent implements OnInit {
   }
 
   public getBooks(filters = {}) {
-    console.log(3999, filters);
     this.hrs.request(
       "get",
       "book/getBooks",
@@ -156,6 +162,7 @@ export class ViewBooksComponent implements OnInit {
     this.hrs.request("post", "book/addBook", data, async (data: IResponse) => {
       if (data.success) {
         this.addInCurrentUserTable(data);
+        this.books.pop();
       } else {
         if (data.message == "Restricted") {
           this.dialog.open(PopUpModalComponent, {
@@ -174,6 +181,7 @@ export class ViewBooksComponent implements OnInit {
 
   private addInCurrentUserTable(newBook: any) {
     this.books.unshift(newBook.data);
+    this.counts += 1;
   }
 
   selectedCardFace = { face: "front", url: "" };
@@ -182,7 +190,7 @@ export class ViewBooksComponent implements OnInit {
     this.qrCodeUrl = "";
     this.barcodeUrl = "";
 
-    this.idCardBtn = true;
+    // this.idCardBtn = true;
     this.hrs.request("put", "user/generateIdCard", {}, async (res: any) => {
       console.log(2342342342, res);
       if (res.success) {
@@ -225,32 +233,6 @@ export class ViewBooksComponent implements OnInit {
     this.hrs.request("put", "user/generateBarcode", {}, async (res: any) => {
       this.barcodeUrl = res.data.url;
       this.barcodeBtn = false;
-    });
-  }
-
-  public downloadPDF() {
-    this.pdfbtn = true;
-
-    this.hrs.request("download", "user/downloadPDF", {}, async (res: any) => {
-      const filename = `PDF_123`;
-      if (res.body) {
-        saveAs(res.body, filename);
-      }
-
-      this.pdfbtn = false;
-    });
-  }
-
-  public downloadExcel() {
-    this.excelbtn = true;
-
-    this.hrs.request("download", "user/downloadExcel", {}, async (res: any) => {
-      const filename = `EXCEL_123`;
-      if (res.body) {
-        saveAs(res.body, filename);
-      }
-
-      this.excelbtn = false;
     });
   }
 }

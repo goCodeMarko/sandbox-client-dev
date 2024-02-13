@@ -1,5 +1,5 @@
-<section class="login-background">
-  <div class="container" @fade>
+<section class="login-background" @fade>
+  <div class="container">
     <div>
       <mat-card>
         <div class="login-card-header">
@@ -27,7 +27,8 @@
             <input type="password" matInput formControlName="password" />
             <!-- <mat-hint>Hint</mat-hint> -->
           </mat-form-field>
-          <button mat-button color="primary" (click)="login()">LOGIN</button>
+
+          <button mat-button color="accent" (click)="login()">LOGIN</button>
         </form>
       </mat-card>
     </div>

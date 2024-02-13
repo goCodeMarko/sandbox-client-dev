@@ -14,14 +14,32 @@
   color: rgba(235, 235, 235, 0.8) !important;
 }
 
-table{
-    padding:1em;
+table {
+  padding: 1em;
 }
 
-tfoot{
-    margin-top: 1em;
+tfoot {
+  margin-top: 1em;
 }
 
-.button{
+.button {
   display: inline-flex;
+}
+
+::ng-deep .mat-menu-panel {
+  min-width: 0px !important;
+  min-height: 0px !important;
+}
+.mat-menu-content {
+  position: relative;
+}
+.custom-mat-panel {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  min-height: 300px;
+  min-width: 600px;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08) !important;
 }

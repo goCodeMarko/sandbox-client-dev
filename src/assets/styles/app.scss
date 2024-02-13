@@ -895,24 +895,38 @@ list inline
   top: 57px;
 }
 
-.mat-stroked-button.mat-accent {
-  color: #588b8b !important;
+//buttons
+.mat-stroked-button {
+  color: #90ac8e !important;
+  background-color: transparent;
 }
 
-.mat-button.mat-primary {
-  color: #588b8b !important;
+.mat-button {
+  color: #90ac8e !important;
 }
 
+.mat-icon-button {
+  color: #90ac8e !important;
+}
+
+//input fields
 .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
   .mat-form-field-flex:hover
   .mat-form-field-outline {
-  color: #588b8b !important;
+  color: #90ac8e !important;
 }
 .mat-form-field.mat-focused .mat-form-field-label {
-  color: #588b8b !important;
+  color: #90ac8e !important;
 }
 .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
   .mat-form-field-flex
   .mat-form-field-outline {
-  color: #588b8b !important;
+  color: #90ac8e !important;
+}
+
+//mat-card
+.mat-card {
+  background-color: rgb(255, 255, 255, 0.8);
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 15px;
 }

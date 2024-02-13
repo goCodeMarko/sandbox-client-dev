@@ -11,6 +11,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { PopUpModalComponent } from "../../modals/pop-up-modal/pop-up-modal.component";
 import { HttpRequestService } from "../../http-request/http-request.service";
 import { EditBookComponent } from "../../modals/edit-book/edit-book.component";
+import { saveAs } from "file-saver";
 interface IBooks {
   author: string;
   stocks: number;
@@ -22,7 +23,15 @@ interface IBooks {
 
 interface IResponse {
   success: string;
-  data: IBooks[];
+  data: {
+    items: IBooks[];
+    meta: {
+      total: number;
+      limit: number;
+      page: number;
+      pages: number;
+    };
+  };
   code: number;
   message: string;
 }
@@ -44,8 +53,14 @@ export class TableBooksComponent implements OnInit, OnChanges {
     dateStart: "",
     dateEnd: "",
     skip: 0,
-    limit: 5,
+    limit: 10,
   };
+  pdfbtn = false;
+  excelbtn = false;
+  checked = false;
+  indeterminate = false;
+
+  value1: number = this.filters.limit;
 
   constructor(private dialog: MatDialog, private hrs: HttpRequestService) {}
 
@@ -57,7 +72,7 @@ export class TableBooksComponent implements OnInit, OnChanges {
 
   emitNext() {
     if (this.currentPage < this.totalPages) {
-      this.filters.skip += 5;
+      this.filters.skip += 10;
 
       this.next.emit(this.getFilters);
     }
@@ -65,7 +80,7 @@ export class TableBooksComponent implements OnInit, OnChanges {
 
   emitPrev() {
     if (this.filters.skip > 0) {
-      this.filters.skip -= 5;
+      this.filters.skip -= 10;
 
       this.previous.emit(this.getFilters);
     }
@@ -73,6 +88,10 @@ export class TableBooksComponent implements OnInit, OnChanges {
 
   get getFilters() {
     return this.filters;
+  }
+
+  setFilter() {
+    console.log(222222, this.value1);
   }
 
   openDeleteModal(id: string) {
@@ -109,8 +128,8 @@ export class TableBooksComponent implements OnInit, OnChanges {
   private editBook(oldData: any, newData: any) {
     this.hrs.request(
       "put",
-      "book/editBook",
-      { oldData, newData },
+      `book/updateBook/${oldData._id}`,
+      newData.updateddata,
       async (data: IResponse) => {
         if (data.success) {
           this.editCurrentBookInTable(oldData._id, newData);
@@ -134,10 +153,12 @@ export class TableBooksComponent implements OnInit, OnChanges {
   private deleteBook(id: string) {
     this.hrs.request(
       "put",
-      "book/deleteBook",
-      { id },
+      `book/deleteBook/${id}`,
+      this.filters,
       async (data: IResponse) => {
         if (data.success) {
+          this.books.push(data.data?.items[0]);
+          this.totalCount -= 1;
           this.deleteCurrentBookInTable(id);
         } else {
           if (data.message == "Restricted") {
@@ -171,6 +192,32 @@ export class TableBooksComponent implements OnInit, OnChanges {
         this.books[i].stocks = edited.updateddata.stocks;
         this.books[i].price = edited.updateddata.price;
       }
+    });
+  }
+
+  public downloadPDF() {
+    this.pdfbtn = true;
+
+    this.hrs.request("download", "user/downloadPDF", {}, async (res: any) => {
+      const filename = `PDF_123`;
+      if (res.body) {
+        // saveAs(res.body, filename);
+      }
+
+      this.pdfbtn = false;
+    });
+  }
+
+  public downloadExcel() {
+    this.excelbtn = true;
+    console.log(143434, this.excelbtn);
+    this.hrs.request("download", "user/downloadExcel", {}, async (res: any) => {
+      const filename = `EXCEL_123`;
+      if (res.body) {
+        saveAs(res.body, filename);
+      }
+
+      this.excelbtn = false;
     });
   }
 }

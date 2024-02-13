@@ -5,12 +5,12 @@
   <!-- ============================================================== -->
   <!-- Topbar - style you can find in header.scss -->
   <!-- ============================================================== -->
-  <mat-toolbar color="primary" class="topbar telative">
+  <mat-toolbar class="topbar telative">
     <!-- ============================================================== -->
     <!-- sidebar toggle -->
     <!-- ============================================================== -->
     <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
-      <mat-icon>menu</mat-icon>
+      <mat-icon style="color: #90ac8e">menu</mat-icon>
     </button>
 
     <!-- Logo - style you can find in header.scss -->
@@ -26,11 +26,11 @@
             class="dark-logo"
           />
           <!-- Light Logo icon -->
-          <img
+          <!-- <img
             src="assets/images/logo-light-icon.png"
             alt="homepage"
             class="light-logo"
-          />
+          /> -->
         </b>
         <!--End Logo icon -->
         <!-- Logo text -->
@@ -43,8 +43,9 @@
           />
           <!-- Light Logo text -->
           <img
-            src="assets/images/logo-light-text.png"
+            src="assets/images/light-logo.png"
             class="light-logo"
+            style="width: 180px"
             alt="homepage"
           />
         </span>
@@ -86,12 +87,12 @@
     <!-- Page container - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <mat-sidenav-content class="page-wrapper">
-      <div class="breadcrumb">
+      <!-- <div class="breadcrumb">
         <div class="bc-header"></div>
         <div class="bc-nav">
-          <b>Book > Book List</b>
+          <p>Books > Book List</p>
         </div>
-      </div>
+      </div> -->
 
       <div class="page-content">
         <!-- <mat-card class="breadcrumb">

@@ -12,6 +12,12 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { ViewUsersComponent } from "./view-users/view-users.component";
 import { MatInputModule } from "@angular/material/input";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSliderModule } from "@angular/material/slider";
+import { MatMenuModule } from "@angular/material/menu";
+import { FormsModule } from "@angular/forms";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatDividerModule } from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -28,7 +34,12 @@ import { MatInputModule } from "@angular/material/input";
     MatIconModule,
     MatButtonModule,
     MatInputModule,
-    MatButtonModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatSliderModule,
+    FormsModule,
+    MatCheckboxModule,
+    MatDividerModule,
     RouterModule.forChild(UserRoutes),
   ],
 })

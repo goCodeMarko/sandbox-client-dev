@@ -2,12 +2,12 @@ import { Routes } from "@angular/router";
 import { FullComponent } from "./layouts/full/full.component";
 import { AdminGuard } from "./guards/admin.guard";
 import { UserGuard } from "./guards/user.guard";
+import { LoginComponent } from "./login/login.component";
 
 export const AppRoutes: Routes = [
   {
     path: "login",
-    loadChildren: () =>
-      import("./login/login.module").then((m) => m.LoginModule),
+    component: LoginComponent,
   },
   {
     path: "",
@@ -27,5 +27,5 @@ export const AppRoutes: Routes = [
       },
     ],
   },
-  { path: "**", redirectTo: "" },
+  { path: "**", redirectTo: "login" },
 ];

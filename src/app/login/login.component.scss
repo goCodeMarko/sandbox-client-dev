@@ -14,12 +14,12 @@
     justify-content: center;
 
     & mat-card {
-      height: 640px;
-      width: 500px !important;
-      margin-top: 15vh !important;
+      height: 680px;
+      width: 550px !important;
+      margin-top: 8vh !important;
       padding: 2em !important;
       border-radius: 15px;
-      background-color: #f7f4e6 !important;
+      background-color: #f7f4e611 !important;
       color: black !important;
 
       & .login-card-header {
@@ -38,10 +38,9 @@
 
           & .company-logo {
             // filter: drop-shadow(5px 1px 7px black);
-            // margin: auto auto 20px auto;
-            width: 430px;
-            height: 134px;
-            margin-bottom: 40px;
+            margin: auto auto 10px auto;
+            width: 300px;
+            height: 200px;
           }
         }
       }

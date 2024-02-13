@@ -88,45 +88,16 @@
 >
   Barcode
 </button>
-<button
-  (click)="this.downloadPDF()"
-  [disabled]="this.pdfbtn"
-  [ngStyle]="{ cursor: this.pdfbtn ? 'progress ' : 'pointer' }"
-  mat-stroked-button
-  color="accent"
->
-  PDF
-</button>
-<button
-  (click)="this.downloadExcel()"
-  [disabled]="this.excelbtn"
-  [ngStyle]="{ cursor: this.excelbtn ? 'progress ' : 'pointer' }"
-  mat-stroked-button
-  color="accent"
->
-  Excel
-</button>
-<button
-  (click)="this.downloadExcel()"
-  [disabled]="this.excelbtn"
-  [ngStyle]="{ cursor: this.excelbtn ? 'progress ' : 'pointer' }"
-  mat-stroked-button
-  color="accent"
->
-  CSV (Under Development)
-</button>
 
-<div class="addbutton-container">
-  <button
-    mat-stroked-button
-    color="accent"
-    (click)="openAddBookModal()"
-    mat-stroked-button
-    color="accent"
-  >
-    Add Book
-  </button>
-</div>
+<button
+  mat-stroked-button
+  color="accent"
+  (click)="openAddBookModal()"
+  mat-stroked-button
+  color="accent"
+>
+  Add Book
+</button>
 <div>
   <app-table-books
     [books]="this.books"
@@ -135,5 +106,6 @@
     [totalPages]="this.pages"
     (next)="this.getBooks($event)"
     (previous)="this.getBooks($event)"
+    @fade
   ></app-table-books>
 </div>

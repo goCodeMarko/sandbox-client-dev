@@ -1,11 +1,142 @@
-<mat-card style="border-radius: 15px">
-  <!-- search box -->
-  <mat-form-field style="margin: 1em; width: 300px" appearance="fill">
-    <mat-label>Search</mat-label>
-    <input matInput type="search" />
-  </mat-form-field>
+<mat-card style="border-radius: 15px; min-width: 960px; font-size: 14px">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0 10px;
+    "
+  >
+    <!-- search box -->
+    <div>
+      <mat-form-field
+        style="margin: 1em; width: 300px; font-size: 14px; padding-right: 15px"
+        appearance="standard"
+      >
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="" />
+        <mat-icon matSuffix style="color: #90ac8e">search</mat-icon>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+      <button
+        #menuTrigger="matMenuTrigger"
+        [matMenuTriggerFor]="filter"
+        mat-button
+      >
+        Filters
+        <span class="material-symbols-outlined" style="margin-left: 5px">
+          tune
+        </span>
+      </button>
 
-  <button mat-stroked-button color="accent">Filters</button>
+      <mat-menu #filter="matMenu" class="mymegamenu">
+        <div class="custom-mat-panel" (click)="$event.stopPropagation()">
+          <button
+            style="color: #90ac8e; position: absolute; right: 10px; top: 10px"
+            mat-icon-button
+            (click)="menuTrigger.closeMenu()"
+          >
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+
+          <div style="display: flex">
+            <div style="border-right: 1px solid red; padding-right: 15px">
+              <b>Search By</b>
+              <span class="example-list-section">
+                <p>
+                  <mat-checkbox class="example-margin" [(ngModel)]="checked"
+                    >Checked</mat-checkbox
+                  >
+                </p>
+                <p>
+                  <mat-checkbox
+                    class="example-margin"
+                    [(ngModel)]="indeterminate"
+                    >Indeterminate</mat-checkbox
+                  >
+                </p>
+                <p>
+                  <mat-checkbox
+                    class="example-margin"
+                    [(ngModel)]="indeterminate"
+                    >Indeterminate</mat-checkbox
+                  >
+                </p>
+                <p>
+                  <mat-checkbox
+                    class="example-margin"
+                    [(ngModel)]="indeterminate"
+                    >Indeterminate</mat-checkbox
+                  >
+                </p>
+              </span>
+            </div>
+            <div style="border-right: 1px solid red; padding: 0px 15px">
+              <b> Items Per Page</b>
+
+              <div style="display: block">
+                {{ this.value1 }}
+
+                <mat-slider
+                  class="example-margin"
+                  disabled="false"
+                  max="50"
+                  min="10"
+                  step="10"
+                  discrete="false"
+                  showTickMarks="false"
+                  [(ngModel)]="value1"
+                  (input)="value1 = $event.value"
+                >
+                </mat-slider>
+              </div>
+            </div>
+            <div style="border-right: 1px solid red; padding: 0px 15px">
+              <b>Sort By</b>
+            </div>
+            <div style="padding: 0px 15px">
+              <b>Sort Type</b>
+            </div>
+          </div>
+
+          <button
+            mat-button
+            (click)="setFilter(); menuTrigger.closeMenu()"
+            style="width: 100%; margin-top: 20px"
+          >
+            Save
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+
+    <div>
+      <button
+        mat-button
+        (click)="this.downloadPDF()"
+        [disabled]="this.pdfbtn"
+        [ngStyle]="{ cursor: this.pdfbtn ? 'progress ' : 'pointer' }"
+        color="accent"
+      >
+        Export to PDF
+        <span class="material-symbols-outlined"> news </span>
+      </button>
+      <button
+        mat-button
+        (click)="this.downloadExcel()"
+        [disabled]="this.excelbtn"
+        [ngStyle]="{ cursor: this.excelbtn ? 'progress ' : 'pointer' }"
+        color="accent"
+      >
+        Export to XLSX
+        <span class="material-symbols-outlined"> window </span>
+      </button>
+      <button mat-button>
+        Export to CSV
+        <span class="material-symbols-outlined"> border_left </span>
+      </button>
+    </div>
+  </div>
 
   <!-- table -->
   <table class="table table-responsive">
@@ -16,9 +147,7 @@
         <th width="25%">AUTHOR</th>
         <th width="10%">STOCKS</th>
         <th width="10%">PRICE</th>
-        <th width="30%" style="text-align: center">
-          <mat-icon>menu</mat-icon>
-        </th>
+        <th width="30%" style="text-align: center">ACTIONS</th>
       </tr>
     </thead>
     <tbody>
@@ -35,41 +164,61 @@
         <td style="text-align: center">
           <div class="buttons">
             <button
-              mat-stroked-button
-              color="accent"
-              style="margin-right: 1em"
+              mat-icon-button
+              matTooltip="Next"
+              matTooltipPosition="after"
               (click)="openDeleteModal(book._id)"
+              matTooltip="Delete"
+              matTooltipPosition="above"
             >
-              Delete
+              <mat-icon class="material-symbols-outlined">delete</mat-icon>
             </button>
             <button
-              mat-stroked-button
-              color="accent"
+              mat-icon-button
+              matTooltip="Next"
+              matTooltipPosition="after"
               (click)="openEditModal(book)"
+              matTooltip="Edit"
+              matTooltipPosition="above"
             >
-              Edit
+              <mat-icon class="material-symbols-outlined">edit</mat-icon>
             </button>
           </div>
         </td>
       </tr>
     </tbody>
-    <tfoot>
-      <td colspan="5">
-        Total Item<ng-container *ngIf="this.totalCount">s</ng-container>:
-        {{ this.totalCount }}
-      </td>
-      <td colspan="1" style="display: flex; justify-content: flex-end">
-        <button [disabled]="this.currentPage == 1" (click)="this.emitPrev()">
-          prev
-        </button>
-        Page {{ this.currentPage }} of {{ this.totalPages }}
-        <button
-          [disabled]="this.currentPage == this.totalPages"
-          (click)="this.emitNext()"
-        >
-          next
-        </button>
-      </td>
-    </tfoot>
   </table>
+
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      width: 100% !important;
+      padding-bottom: 20px;
+      padding-right: 15px;
+    "
+  >
+    <div>
+      <p style="padding-left: 15px">Total Items: {{ totalCount }}</p>
+    </div>
+
+    <div>
+      <button
+        [disabled]="this.currentPage == 1"
+        (click)="this.emitPrev()"
+        mat-icon-button
+      >
+        <span class="material-symbols-outlined"> navigate_before </span>
+      </button>
+      Page {{ this.currentPage }} of {{ this.totalPages }}
+      <button
+        [disabled]="this.currentPage == this.totalPages"
+        (click)="this.emitNext()"
+        mat-icon-button
+      >
+        <span class="material-symbols-outlined"> navigate_next </span>
+      </button>
+    </div>
+  </div>
 </mat-card>
