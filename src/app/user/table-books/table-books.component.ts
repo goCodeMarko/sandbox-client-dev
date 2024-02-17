@@ -197,7 +197,7 @@ export class TableBooksComponent implements OnInit, OnChanges {
 
   public downloadPDF() {
     this.pdfbtn = true;
-
+    console.log(123123213, "downloadPDF()");
     this.hrs.request("download", "user/downloadPDF", {}, async (res: any) => {
       const filename = `PDF_123`;
       console.log(123123213, res);
