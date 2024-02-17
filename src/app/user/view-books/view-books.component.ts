@@ -218,7 +218,7 @@ export class ViewBooksComponent implements OnInit {
     this.selectedCardFace.url = "";
     this.barcodeUrl = "";
 
-    this.qrBtn = true;
+    // this.qrBtn = true;
     this.hrs.request("put", "user/generateQR", {}, async (res: any) => {
       this.qrCodeUrl = res.data.url;
       this.qrBtn = false;
